@@ -4,11 +4,14 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-define('BASE_URL','https://cdn.h-edu.cz/book-viewer-embeded/');
+define('BASE_URL','https://cdn.h-edu.cz/book-viewer-embeded-test/');
 
 if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
 	$version = $_GET['version'];
-	$versions = array_reverse(glob("versions/$version"));//todo secure?
+	$versions = glob("versions/$version");//todo secure?
+	usort($versions, function($version1,$version2){
+		return(-version_compare(basename($version1),basename($version2)));
+	});
 
 	if(count($versions)!==0){
 		$version = basename($versions[0]);
