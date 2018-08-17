@@ -4,7 +4,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-define('BASE_URL','https://cdn.h-edu.cz/book-viewer-embeded-test/');
+$selfUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+define('BASE_URL',explode('loader.php',$selfUrl)[0]);
 
 if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
 	$version = $_GET['version'];
@@ -30,16 +31,27 @@ if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
 if (file_exists("versions/$version")) {
 //todo not found
 
- 
-    $js = glob("versions/$version/**/*.js");
-    $css = glob("versions/$version/**/*.css");
 
-    foreach($js as &$url){
-	$url=BASE_URL.$url;
+    function getFiles($globPattern){
+
+        $files = glob($globPattern);
+
+        usort($files, function($a, $b) {
+            return filemtime($a) < filemtime($b);
+        });
+
+        foreach($files as &$url){
+        $url=BASE_URL.$url;
+        }
+
+        $files = array($files[0]);
+
+        return $files;
     }
-    foreach($css as &$url){
-	$url=BASE_URL.$url;
-    }
+
+
+    $js = getFiles("versions/$version/**/*.js");
+    $css = getFiles("versions/$version/**/*.css");
 
 
     $response = array(
@@ -48,9 +60,8 @@ if (file_exists("versions/$version")) {
             array(
                 'version' => $version,
                 'assets' => array(
-                    //todo maybe relative url
                     'js' => $js,
-		    'css' => $css
+		            'css' => $css
                 )
             )
     );
