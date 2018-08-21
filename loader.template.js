@@ -1,11 +1,8 @@
 function loadBookViewerApp(version, callback) {
 
 
-
-
-
 //todo relative url
-    var jqxhr = $.getJSON("https://cdn.h-edu.cz/book-viewer-embeded/loader.php?version=" + version, function () {
+    var jqxhr = $.getJSON("{URL}?version=" + version, function () {
         //console.log( "success" );
     })
         .done(function (response) {

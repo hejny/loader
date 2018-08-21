@@ -1,10 +1,20 @@
 <?php
+
+$selfUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+if(isset($_GET['js'])){
+    header("Content-Type: application/javascript");
+    $contents = file_get_contents('loader.template.js');
+    $contents = str_replace('{URL}',$selfUrl,$contents);
+    echo($contents);
+    exit;
+}
+
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
-$selfUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 define('BASE_URL',explode('loader.php',$selfUrl)[0]);
 
 if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
