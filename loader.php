@@ -56,7 +56,7 @@ if (file_exists("versions/$version")) {
         return $files;
     }
 
-    $js = getFiles("versions/$version/**/*.js");
+    $js = getFiles("versions/$version/**/main*.js");
     $css = getFiles("versions/$version/**/*.css");
 
     $response = array(
