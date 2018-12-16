@@ -1,23 +1,27 @@
-function loadBookViewerApp(version, callback) {
-	//todo relative url
-	$.getJSON("{URL}?version=" + version, function() {
-	  //console.log( "success" );
-	})
+window['{FUNCTION}'] = function(options, callback) {
+	
+	$.getJSON("{URL}?loader=json&type="+options.type+"&version=" + options.version)
 	  .done(function(response) {
-		console.log("Loading BookViewerApp version " + response.data.version);
-  
-		response.data.assets.js.push('https://cdn.ravenjs.com/3.27.0/raven.min.js');
+
+		console.log("Loading version " + response.data.version);
+	
+		if(options.ravenUrl){
+			response.data.assets.js.push('https://cdn.ravenjs.com/3.27.0/raven.min.js');
+		}
+
 		let loadedCount = 0;
 		let loadedAllCallback = function() {
-  
-		  Raven.config('https://5c918bfd70aa495c9a1d2af00cdef72d@sentry.io/241169').install();
-		  Raven.setTagsContext({ version: response.data.version });
-		  Raven.context(function () {
-			callback(window.BookViewerApp);
-		  });
-		  
+	
+			if(options.ravenUrl){
+				Raven.config(options.ravenUrl).install();
+				Raven.setTagsContext({ version: response.data.version });
+				Raven.context(function () {
+					callback(window.BookViewerApp);
+				});
+			}else{
+				callback(window.BookViewerApp);
+			}
 		}
-  
   
 		response.data.assets.js.forEach(function(url) {
 		  //todo without jQuery
