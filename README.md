@@ -6,7 +6,7 @@ This is simple js and css loader.
 
 Thare should be provided one of these options:
 ?loader=async
-?loader=sync
+?loader=sync-redirect
 ?loader=json
 
 ### In the sync and json loader should be also:
@@ -22,9 +22,11 @@ Async loader requires jQuery to be included in window.
 
 ```javascript
 window.loaderFunctionName(
-    /*[Semantic version]*/'*',
-    /*[js|css|*]*/'js',
-    /*[callback]*/()=>{
+    {
+        version: '*',
+        type: 'js'
+    },
+    ()=>{
         //now you can use loaded scripts
     }
 );

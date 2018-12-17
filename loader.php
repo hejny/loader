@@ -7,6 +7,16 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Access-Control-Allow-Credentials: true");
 
+if ($_GET['loader']!=='async'&&$_GET['loader']!=='sync-redirect'&&$_GET['loader']!=='json') {
+    http_response_code(400);
+    header("Content-type: application/json");
+    die(json_encode(array(
+        'status' => 'error',
+        'message' => 'In GET parameters should be loader (async, sync-redirect or json).'
+        ), JSON_PRETTY_PRINT
+    ));
+}
+
 if ($_GET['loader']==='async') {
     if (!isset($_GET['function'])) {
         http_response_code(400);
@@ -20,7 +30,7 @@ if ($_GET['loader']==='async') {
     header("Content-Type: application/javascript");
     $contents = file_get_contents('loaderAsync.js');
     $contents = str_replace('{URL}', $selfUrl, $contents);
-    $contents = str_replace('{FUNCTION}', $selfUrl, $_GET['function']);
+    $contents = str_replace('{FUNCTION}', $_GET['function'], $contents);
     die($contents);
 }
 
@@ -49,7 +59,17 @@ if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
     header("Content-type: application/json");
     die(json_encode(array(
         'status' => 'error',
-        'message' => 'Version should be in the semantic version format.'
+        'message' => 'Version in GET parameters should be in the semantic version format.'
+        ), JSON_PRETTY_PRINT
+    ));
+}
+
+if ($_GET['type']!=='js'&&$_GET['type']!=='css'&&$_GET['type']!=='*') {
+    http_response_code(400);
+    header("Content-type: application/json");
+    die(json_encode(array(
+        'status' => 'error',
+        'message' => 'In GET parameters should be type (js, css or *).'
         ), JSON_PRETTY_PRINT
     ));
 }
@@ -73,8 +93,15 @@ if (file_exists("versions/$version")) {
         return $files;
     }
 
-    $js = getFiles("versions/$version/**/main*.js");
-    $css = getFiles("versions/$version/**/*.css");
+    $js = array();
+    $css = array();
+
+    if($_GET['type']==='*'||$_GET['type']==='js'){
+        $js = getFiles("versions/$version/**/main*.js");
+    }
+    if($_GET['type']==='*'||$_GET['type']==='css'){
+        $css = getFiles("versions/$version/**/*.css");
+    }
 
     $response = array(
         'status' => 'ok',
@@ -87,8 +114,30 @@ if (file_exists("versions/$version")) {
         )
     );
 
-    header("Content-type: application/json");
-    echo json_encode($response, JSON_PRETTY_PRINT);
+    if($_GET['loader']==='json'){
+        header("Content-type: application/json");
+        echo json_encode($response, JSON_PRETTY_PRINT);
+    }else
+    if($_GET['loader']==='sync-redirect'){
+        if($_GET['type']==='js'){
+
+            header('Location: '. $response['data']['assets']['js'][0], true, 302);
+
+        }elseif($_GET['type']==='css'){
+    
+            header('Location: '. $response['data']['assets']['css'][0], true, 302);
+
+        }else{
+            http_response_code(400);
+            header("Content-type: application/json");
+            die(json_encode(array(
+                'status' => 'error',
+                'message' => 'When using sync-redirect loader type can be only js or css.'
+                ), JSON_PRETTY_PRINT
+            ));
+        }
+    }
+    
 } else {
     http_response_code(500);
     header("Content-type: application/json");
