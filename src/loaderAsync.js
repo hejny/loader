@@ -1,56 +1,90 @@
-window['{FUNCTION}'] = function(options, callback) {
-    $.getJSON('{URL}?loader=json&type=' + options.type + '&version=' + options.version)
-        .done(function(response) {
-            console.log('Loading version ' + response.data.version);
+loadApp({
+    version: '{FUNCTION}',
+});
 
-            if (options.ravenUrl) {
-                response.data.assets.js.push('https://cdn.ravenjs.com/3.27.0/raven.min.js');
-            }
+const ASSETS = { ASSETS };
 
-            let loadedCount = 0;
-            let loadedAllCallback = function() {
-                if (options.ravenUrl) {
-                    Raven.config(options.ravenUrl).install();
-                    Raven.setTagsContext({ version: response.data.version });
-                    Raven.context(function() {
-                        callback(window.BookViewerApp);
-                    });
-                } else {
-                    callback(window.BookViewerApp);
-                }
-            };
-
-            response.data.assets.js.forEach(function(url) {
-                //todo without jQuery
-                jQuery.ajaxSetup({ cache: true });
-                jQuery.ajax({
-                    url: url,
-                    dataType: 'script',
-                    success: function() {
-                        loadedCount++;
-                        console.log('Loaded "' + url + '"');
-                        if (response.data.assets.js.length === loadedCount) {
-                            loadedAllCallback();
-                        }
-                    },
-                    async: true,
-                });
-            });
-
-            response.data.assets.css.forEach(function(url) {
-                var head = document.getElementsByTagName('head')[0];
-                var link = document.createElement('link');
-                link.rel = 'stylesheet';
-                link.type = 'text/css';
-                link.href = url;
-                link.media = 'all';
-                head.appendChild(link);
-            });
-        })
-        .fail(function() {
-            throw new Error('Error while loading BookViewerApp version ' + version);
-        })
-        .always(function() {
-            //console.log( "complete" );
+/**
+ *
+ * @param {} version
+ * @param {version?: string; ravenUrl?:string; callback?: ()=>void} options
+ * @returns {Promise<void>}
+ */
+async function loadApp(options = {}) {
+    options.version = options.version || '*';
+    options.callback =
+        options.callback ||
+        (() => {
+            console.info(`No callback defined in loader loadApp options.`);
         });
-};
+
+    const response = await (await fetch('{URL}?version=' + options.version)).json();
+
+    try {
+        console.log('Loading version ' + response.version);
+
+        if (options.ravenUrl) {
+            response.assets.js.push('https://cdn.ravenjs.com/3.27.0/raven.min.js');
+        }
+
+        for (const url of response.assets.css) {
+            loadStyle(url);
+        }
+
+        await Promise.all(response.assets.js.map((url) => loadScript(url)));
+
+        if (options.ravenUrl) {
+            Raven.config(options.ravenUrl).install();
+            Raven.setTagsContext({ version: response.version });
+            Raven.context(() => {
+                options.callback(window.BookViewerApp);
+            });
+        } else {
+            options.callback(window.BookViewerApp);
+        }
+    } catch (error) {
+        console.error('Error while loading BookViewerApp version ' + options.version);
+        throw error;
+    }
+}
+
+const headElement = document.getElementsByTagName('head')[0];
+
+/**
+ *
+ * @param {script} url
+ * @returns {Promise<void>}
+ */
+function loadScript(url) {
+    return new Promise((resolve, reject) => {
+        const scriptElement = document.createElement('script');
+
+        scriptElement.setAttribute('type', 'text/javascript');
+        scriptElement.setAttribute('src', url);
+
+        headElement.addEventListener(
+            'load',
+            function(event) {
+                if (event.target === scriptElement) {
+                    resolve();
+                }
+            },
+            true,
+        );
+
+        headElement.appendChild(scriptElement);
+    });
+}
+
+/**
+ *
+ * @param {script} url
+ */
+function loadStyle(url) {
+    const styleElement = document.createElement('link');
+    styleElement.setAttribute('rel', 'stylesheet');
+    styleElement.setAttribute('type', 'text/css');
+    styleElement.setAttribute('href', url);
+    headElement.appendChild(styleElement);
+    console.log(styleElement);
+}

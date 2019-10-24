@@ -2,3 +2,4 @@ node_modules
 
 versions/*
 !versions/.gitkeep
+!versions/@sample/
