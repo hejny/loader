@@ -25,6 +25,7 @@ window['{FUNCTION}'] = function(options, callback) {
   
 		response.data.assets.js.forEach(function(url) {
 		  //todo without jQuery
+		jQuery.ajaxSetup({'cache':true});
 		  jQuery.ajax({
 			url: url,
 			dataType: "script",
