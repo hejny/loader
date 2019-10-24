@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Simple loader for js and css",
   "scripts": {
-    "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
-    "prettier-watch": "onchange --initial \"src/**/*.{js,php}\" -- npm run prettier"
+    "start": "open-cli http://localhost:3000/samples; php -S localhost:3000; ",
+    "prettier-watch": "onchange '{src,samples}/**/*.{js,php,html}' -- prettier --write {{changed}}"
   },
   "repository": {
     "type": "git",
@@ -20,6 +20,7 @@
   "devDependencies": {
     "@prettier/plugin-php": "^0.11.2",
     "onchange": "^6.1.0",
+    "opn-cli": "^5.0.0",
     "prettier": "^1.18.2"
   }
 }
