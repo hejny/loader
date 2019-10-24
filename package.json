@@ -1,0 +1,25 @@
+{
+  "name": "loader",
+  "version": "0.1.0",
+  "description": "Simple loader for js and css",
+  "scripts": {
+    "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
+    "prettier-watch": "onchange --initial \"src/**/*.{js,php}\" -- npm run prettier"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hejny/loader/"
+  },
+  "author": {
+    "name": "Pavol Hejný",
+    "email": "me@pavolhejny.com",
+    "url": "https://www.pavolhejny.com/"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/hejny/loader/",
+  "devDependencies": {
+    "@prettier/plugin-php": "github:prettier/plugin-php",
+    "onchange": "^3.3.0",
+    "prettier": "^1.18.2"
+  }
+}
