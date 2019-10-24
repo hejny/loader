@@ -16,10 +16,10 @@
     "url": "https://www.pavolhejny.com/"
   },
   "license": "ISC",
-  "homepage": "https://github.com/hejny/loader/",
+  "homepage": "https://github.ncom/hejny/loader/",
   "devDependencies": {
-    "@prettier/plugin-php": "github:prettier/plugin-php",
-    "onchange": "^3.3.0",
+    "@prettier/plugin-php": "^0.11.2",
+    "onchange": "^6.1.0",
     "prettier": "^1.18.2"
   }
 }
