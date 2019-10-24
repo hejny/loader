@@ -1,5 +1,5 @@
 <?php
-$selfUrl = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+$selfUrl = (isset($_SERVER["HTTPS"]) ? 'https' : 'http')."://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 $selfUrl = explode('?', $selfUrl)[0];
 
 header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
@@ -34,7 +34,7 @@ if ($_GET['loader']==='async') {
     die($contents);
 }
 
-define('BASE_URL', explode('loader.php', $selfUrl)[0]);
+define('BASE_URL', /*TODO:*/explode('loader.php', $selfUrl)[0]);
 
 if (preg_match('/^(?:(\d+)\.)?(?:(\d+)\.)?(\*|\d+)$/', $_GET['version'])) {
     $version = $_GET['version'];

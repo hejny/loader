@@ -1,0 +1,5 @@
+FallbackResource /loader/index.php
+
+# OR:
+# RewriteEngine on
+# RewriteRule  (.*)  http://localhost:5000/$1  [P,L] 
