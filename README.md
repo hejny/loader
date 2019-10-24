@@ -16,7 +16,7 @@ Thare should be provided one of these options:
 ### In async loader should be:
 ?function=[loaderFunctionName]
 
-###Async loader usage
+### Async loader usage
 
 Async loader requires jQuery to be included in window.
 
