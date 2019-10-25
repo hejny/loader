@@ -5,7 +5,12 @@ if (!isset($_GET['function'])) {
 }
 
 header('Content-Type: application/javascript');
-$contents = file_get_contents(__DIR__ . '/loaderAsync.js');
-//$contents = str_replace('{URL}', SELF_URL, $contents);
-//$contents = str_replace('{FUNCTION}', $_GET['function'], $contents);
-die($contents);
+$contents = file_get_contents(__DIR__ . '/type-script.js');
+
+// TODO: Some better way how to template javascript file.
+
+$contents = str_replace('__VERSION__', VERSION, $contents);
+$contents = str_replace('__ASSETS__', json_encode(getFiles(VERSION, 'js'), JSON_PRETTY_PRINT), $contents);
+$contents = str_replace('__FUNCTION__', $_GET['function'], $contents);
+
+echo $contents;

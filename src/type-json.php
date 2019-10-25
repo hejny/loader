@@ -1,13 +1,10 @@
 <?php
 
-$js = getFiles(VERSION, 'js');
-$css = getFiles(VERSION, 'css');
-
 $response = array(
     'version' => $version,
     'assets' => array(
-        'js' => $js,
-        'css' => $css
+        'js' => getFiles(VERSION, 'js'),
+        'css' => getFiles(VERSION, 'css')
     )
 );
 
