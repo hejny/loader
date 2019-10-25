@@ -1,3 +1,5 @@
-class App{
-
+class App {
+    constructor(element) {
+        element.innerHTML = 'Hello App!';
+    }
 }

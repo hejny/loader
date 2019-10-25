@@ -4,7 +4,7 @@
   "description": "Simple loader for js and css",
   "scripts": {
     "start": "open-cli http://localhost:3000/samples; php -S localhost:3000; ",
-    "prettier-watch": "onchange '{src,samples}/**/*.{js,php,html}' -- prettier --write {{changed}}"
+    "prettier-watch": "onchange '{src,samples}/**/*.{js,php,html}' 'versions/@sample/**/*.{js,css}' -- prettier --write {{changed}}"
   },
   "repository": {
     "type": "git",

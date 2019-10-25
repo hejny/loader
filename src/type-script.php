@@ -12,5 +12,6 @@ $contents = file_get_contents(__DIR__ . '/type-script.js');
 $contents = str_replace('__VERSION__', VERSION, $contents);
 $contents = str_replace('__ASSETS__', json_encode(getFiles(VERSION, 'js'), JSON_PRETTY_PRINT), $contents);
 $contents = str_replace('__FUNCTION__', $_GET['function'], $contents);
+$contents = str_replace('__EXPORTS__', isset($_GET['exports']) ? $_GET['exports'] : 'null', $contents);
 
 echo $contents;

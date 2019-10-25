@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="cs" dir="ltr">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Loader sample</title>
+        <script src="/?type=script&function=loadApp&version=*&exports=App"></script>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script>
+            loadApp((App) => {
+                new App(document.getElementById('root'));
+            });
+        </script>
+    </body>
+</html>

@@ -2,12 +2,30 @@
     const ASSETS = __ASSETS__;
     const VERSION = '__VERSION__';
     const FUNCTION = '__FUNCTION__';
+    const EXPORTS = '__EXPORTS__';
 
-    const scriptsLoaded = Promise.all(ASSETS.map((url) => loadScript(url)));
+    const scriptsLoaded = new Promise((resolve) => {
+        //TODO: In get params wait strategy before start loading
+        requestAnimationFrame(async () => {
+            await Promise.all(ASSETS.map((url) => loadScript(url)));
+            resolve();
+        });
+    });
 
     window[FUNCTION] = async (callback) => {
         await scriptsLoaded;
-        callback();
+
+        if (EXPORTS !== 'null') {
+            try {
+                const exported = __EXPORTS__;
+                callback(exported);
+            } catch (error) {
+                console.error(error);
+                throw new Error(`Scripts in version "${VERSION}" did not declare window.${EXPORTS}.`);
+            }
+        } else {
+            callback();
+        }
     };
 
     /**
