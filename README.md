@@ -1,3 +1,5 @@
+!!! This repository contains security issues - do not use it until consultation with @hejny .
+
 # Loader
 
 This is simple js and css loader.
