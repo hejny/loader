@@ -1,4 +1,4 @@
-!!! This repository contains security issues - do not use it until consultation with @hejny .
+> :warning: This repository contains security issues - do not use it until consultation with @hejny .
 
 # Loader
 
