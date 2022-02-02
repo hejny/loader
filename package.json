@@ -15,7 +15,7 @@
     "email": "me@pavolhejny.com",
     "url": "https://www.pavolhejny.com/"
   },
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "homepage": "https://github.ncom/hejny/loader/",
   "devDependencies": {
     "@prettier/plugin-php": "0.11.2",
