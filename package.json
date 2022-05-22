@@ -1,25 +1,25 @@
 {
-  "name": "loader",
-  "version": "0.1.0",
-  "description": "This is simple js and css loader.",
-  "scripts": {
-    "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
-    "prettier-watch": "onchange --initial \"src/**/*.{js,php}\" -- npm run prettier"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/hejny/loader"
-  },
-  "author": {
-    "name": "Pavol Hejný",
-    "email": "me@pavolhejny.com",
-    "url": "https://www.pavolhejny.com/"
-  },
-  "license": "SEE LICENSE IN LICENSE",
-  "homepage": "https://github.ncom/hejny/loader/",
-  "devDependencies": {
-    "@prettier/plugin-php": "0.11.2",
-    "onchange": "6.1.0",
-    "prettier": "1.18.2"
-  }
+    "name": "loader",
+    "version": "0.1.0",
+    "description": "This is simple js and css loader.",
+    "scripts": {
+        "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
+        "prettier-watch": "onchange --initial \"src/**/*.{js,php}\" -- npm run prettier"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/hejny/loader"
+    },
+    "author": {
+        "name": "Pavol Hejný",
+        "email": "me@pavolhejny.com",
+        "url": "https://www.pavolhejny.com/"
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "homepage": "https://github.ncom/hejny/loader/",
+    "devDependencies": {
+        "@prettier/plugin-php": "0.11.2",
+        "onchange": "6.1.0",
+        "prettier": "1.18.2"
+    }
 }
