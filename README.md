@@ -8,9 +8,9 @@
 
 [![License of 🌐 Loader](https://img.shields.io/github/license/hejny/loader.svg?style=flat)](https://github.com/hejny/loader/blob/master/LICENSE)
 [![NPM Version of 🌐 Loader](https://badge.fury.io/js/loader.svg)](https://www.npmjs.com/package/loader)
-[![Quality of package 🌐 Loader](https://packagequality.com/shield/loader.svg)](https://packagequality.com/#?package=loader)
 [![Known Vulnerabilities](https://snyk.io/test/github/hejny/loader/badge.svg)](https://snyk.io/test/github/hejny/loader)
 [![Issues](https://img.shields.io/github/issues/hejny/loader.svg?style=flat)](https://github.com/hejny/loader/issues)
+<!--[![Quality of package 🌐 Loader](https://packagequality.com/shield/loader.svg)](https://packagequality.com/#?package=loader)-->
 
 <!--/Badges-->
 
