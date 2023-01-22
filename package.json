@@ -1,7 +1,7 @@
 {
     "name": "loader",
     "version": "0.1.0",
-    "description": "I am open to pull requests, feedback, and suggestions. Or if you like this utility, you can ☕ buy me a coffee or donate via cryptocurrencies.",
+    "description": "This is simple js and css loader.",
     "scripts": {
         "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
         "prettier-watch": "onchange --initial \"src/**/*.{js,php}\" -- npm run prettier"
