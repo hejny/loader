@@ -10,6 +10,7 @@
 [![Quality of package 🌐 Loader](https://packagequality.com/shield/loader.svg)](https://packagequality.com/#?package=loader)
 [![Known Vulnerabilities](https://snyk.io/test/github/hejny/loader/badge.svg)](https://snyk.io/test/github/hejny/loader)
 [![Issues](https://img.shields.io/github/issues/hejny/loader.svg?style=flat)](https://github.com/hejny/loader/issues)
+[![Socket](https://socket.dev/api/badge/npm/package/loader)](https://socket.dev/npm/package/loader)
 <!--[![License of 🌐 Loader](https://img.shields.io/github/license/hejny/loader.svg?style=flat)](https://github.com/hejny/loader/blob/main/LICENSE)-->
 
 <!--/Badges-->
