@@ -1,6 +1,6 @@
 {
     "name": "loader",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "description": "This is simple js and css loader.",
     "scripts": {
         "prettier": "prettier --config .prettierrc --write \"src/**/*.{js,php}\"",
